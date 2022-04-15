@@ -15,7 +15,6 @@ export async function getServerSideProps(ctx) {
     "https://gift.kakao.com/a/v1/pages/productGroups/collections?page=1&size=100&productCollectionIds"
   );
 
-  console.log();
   const searchData = list.items.filter((e) =>
     e.displayName.includes(ctx.params.displayName.trim())
   );

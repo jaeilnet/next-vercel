@@ -9,10 +9,15 @@ const Search = () => {
     setSearchValue(e.target.value);
   };
 
+  const onEnterPress = (e) => {
+    if (e.keyCode === 13) {
+      onSearch();
+    }
+  };
+
   const onSearch = () => {
-    searchValue.trim().length > 0
-      ? router.push(`/search/${searchValue}`)
-      : alert("검색어를 입력해주세요");
+    const searchText = searchValue.toUpperCase() || searchValue.toUpperCase();
+    searchText.trim().length > 0 && router.push(`/search/${searchValue}`);
   };
 
   return (
@@ -22,7 +27,7 @@ const Search = () => {
         type="text"
         placeholder="검색 ---"
         onChange={onChange}
-        onKeyPress={onSearch}
+        onKeyUp={onEnterPress}
       />
       <button onClick={onSearch}>검색</button>
     </React.Fragment>

@@ -6,23 +6,23 @@ const SearchBrand = ({ searchData }) => {
   return (
     <React.Fragment>
       <List list={searchData} />
-      <div>dd</div>
     </React.Fragment>
   );
 };
 
 export async function getServerSideProps(ctx) {
+  const params = ctx.params.brandId;
   const { list } = await useFetch(
-    "https://gift.kakao.com/a/v1/pages/productGroups/collections?page=1&size=100&productCollectionIds"
+    `https://gift.kakao.com/a/v1/brand/${params}`
   );
 
-  const searchData = list.items.filter(
-    (e) => +e.brandId === +ctx.query.brandId
-  );
+  const filter = list.components.filter((e) => e.type === "PRODUCT_GROUP");
+
+  const data = filter[0].property.collections[0].items;
 
   return {
     props: {
-      searchData: searchData,
+      searchData: data,
     },
   };
 }
