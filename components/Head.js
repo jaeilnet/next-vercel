@@ -4,10 +4,10 @@ import Head from "next/head";
 const HeadCommon = ({ meta }) => {
   return (
     <Head>
-      <title>{meta ? meta.displayName : "홈"}</title>
+      <title>{meta ? meta.displayName : "재일이의 넥스트js"}</title>
       <meta
         name="og:title"
-        content={meta ? meta.displayName : "넥스트 연습 og"}
+        content={meta ? meta.displayName : "재일이의 넥스트js"}
       />
       <meta
         name="og:image"
