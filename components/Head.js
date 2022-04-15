@@ -13,13 +13,13 @@ const HeadCommon = ({ meta }) => {
         name="og:image"
         content={
           meta
-            ? meta.imgUrl
+            ? meta.imageUrl
             : "https://blog.kakaocdn.net/dn/bqCsrL/btrr5VxRKxV/adusUrS4nWZt0SNfY48yU0/img.jpg"
         }
       />
       <meta
         name="og:description"
-        content={meta ? meta.price : "넥스트 연습 desc og"}
+        content={meta ? meta.discountedPrice : "넥스트 연습 desc og"}
       />
       <meta name="keyword" content="넥스트 연습 keyword" />
       <meta
