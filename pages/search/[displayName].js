@@ -1,10 +1,12 @@
 import React from "react";
+import HeadCommon from "../../components/Head";
 import SearchScreen from "../../components/SearchScreen";
 import useFetch from "../../components/useFetch";
 
 const SearchProduct = ({ searchData }) => {
   return (
     <React.Fragment>
+      <HeadCommon meta={searchData} />
       <SearchScreen searchData={searchData} />
     </React.Fragment>
   );
