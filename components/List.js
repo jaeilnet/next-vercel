@@ -10,7 +10,7 @@ const List = ({ list }) => {
     <div style={{ marginTop: "60px" }}>
       <ul className={classes.container}>
         {list.map((e, idx) => (
-          <Link href={`/${e.productId}`} key={e.productId}>
+          <Link href={`/detail/${e.productId}`} key={e.productId}>
             <li className={classes.list} key={e.productId}>
               <p className={classes.lank}>{idx + 1}</p>
               <Image

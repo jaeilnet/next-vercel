@@ -2,7 +2,6 @@ import React from "react";
 import Head from "next/head";
 
 const HeadCommon = ({ meta }) => {
-  console.log(meta, "meta");
   const ogImage =
     "https://blog.kakaocdn.net/dn/bqCsrL/btrr5VxRKxV/adusUrS4nWZt0SNfY48yU0/img.jpg";
 

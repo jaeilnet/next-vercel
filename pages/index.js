@@ -7,7 +7,7 @@ const Home = ({ itemsList }) => {
   return (
     <React.Fragment>
       <HeadCommon />
-      <List list={itemsList.items} />
+      <List list={itemsList} />
     </React.Fragment>
   );
 };
@@ -19,7 +19,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      itemsList: list,
+      itemsList: list.items,
     },
   };
 }
