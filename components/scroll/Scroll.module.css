@@ -1,0 +1,7 @@
+.button {
+  position: fixed;
+  right: 50px;
+  top: 50%;
+  color: #fff;
+  background-color: #ff5f62;
+}

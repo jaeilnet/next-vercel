@@ -17,7 +17,9 @@ const Search = () => {
 
   const onSearch = () => {
     const searchText = searchValue.toUpperCase() || searchValue.toUpperCase();
-    searchText.trim().length > 0 && router.push(`/search/${searchValue}`);
+    searchText.trim().length > 0 && router.pathname === "/theme"
+      ? router.push(`/search&theme/${searchValue}`)
+      : router.push(`/search/${searchValue}`);
   };
 
   return (

@@ -1,13 +1,8 @@
 import React from "react";
-import Test from "../../components/Test";
 import useFetch from "../../components/useFetch";
 
-const theme = ({ theme }) => {
-  return (
-    <div>
-      <Test />
-    </div>
-  );
+const theme = ({ data }) => {
+  return <div>dd</div>;
 };
 
 export async function getServerSideProps() {
@@ -15,27 +10,33 @@ export async function getServerSideProps() {
     "https://gift.kakao.com/a/v1/home/contents?_=1650010699300"
   );
 
+  // const { list: text } = await useFetch(
+  //   "https://gift.kakao.com/a/v1/pages/productGroups/collections?page=2&size=20&productCollectionIds=165999"
+  // );
+
   const _theme = list.themes[0].themes.map((e) => e.linkUrl.split("/"));
 
   const theme = _theme.map((e) => e[e.length - 1]);
 
   const themeUrl = theme.filter((e) => e.split("_").includes("life"));
 
-  console.log(themeUrl);
+  let totalArray = [];
 
-  const { list: data1 } = await useFetch(
-    `https://gift.kakao.com/a/v1/pages/codes/${themeUrl[0]}`
-  );
+  for (let i = 0; i < themeUrl.length; i++) {
+    const { list } = await useFetch(
+      `https://gift.kakao.com/a/v1/pages/codes/${themeUrl[i]}`
+    );
 
-  console.log(data1.components[1].property.collections[0].items);
+    totalArray = {
+      ...totalArray,
+      [list.name]: list,
+    };
+  }
 
-  // const data = themeUrl.map(
-  //   async (e) => await fetch(`https://gift.kakao.com/a/v1/pages/codes/${e}`)
-  // );
-
+  // console.log(text, "dd");
   return {
     props: {
-      data: [],
+      data: totalArray,
     },
   };
 }

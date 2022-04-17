@@ -1,7 +1,7 @@
 import React from "react";
 import List from "../components/List";
 import useFetch from "../components/useFetch";
-import HeadCommon from "../components/Head";
+import HeadCommon from "../components/layout/Head";
 
 const Home = ({ itemsList }) => {
   return (
@@ -17,9 +17,14 @@ export async function getStaticProps() {
     "https://gift.kakao.com/a/v1/pages/productGroups/collections?page=1&size=100&productCollectionIds"
   );
 
+  const itmesList = list.items.map((e, i) => ({
+    ...e,
+    rank: i + 1,
+  }));
+
   return {
     props: {
-      itemsList: list.items,
+      itemsList: itmesList,
     },
   };
 }

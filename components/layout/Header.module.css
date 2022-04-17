@@ -5,6 +5,10 @@
   border-bottom: 1px solid #efefef;
   box-shadow: 5px 5px 20px 5px rgba(132, 142, 166, 0.8);
   align-items: center;
+  position: fixed;
+  width: 100%;
+  background: #fff;
+  z-index: 999;
 }
 
 .logo {
@@ -31,4 +35,10 @@
 }
 .search input {
   padding: 5px 10px;
+}
+
+@media screen and (max-width: 420px) {
+  .search input {
+    display: none;
+  }
 }

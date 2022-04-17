@@ -1,6 +1,6 @@
 import React from "react";
 import Detail from "../../components/Detail";
-import HeadCommon from "../../components/Head";
+import HeadCommon from "../../components/layout/Head";
 import useFetch from "../../components/useFetch";
 
 const ProductDetail = ({ detailItems }) => {

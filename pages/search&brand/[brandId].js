@@ -1,5 +1,5 @@
 import React from "react";
-import HeadCommon from "../../components/Head";
+import HeadCommon from "../../components/layout/Head";
 import List from "../../components/List";
 import useFetch from "../../components/useFetch";
 

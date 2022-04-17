@@ -1,18 +1,22 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React from "react";
 import classes from "./Header.module.css";
-import Search from "./Search";
+import Search from "../Search";
 
 const Header = () => {
   return (
     <div className={classes.header}>
       <div className={classes.logo}>
         <Link href={"/"}>
-          <div>로고</div>
+          <a>로고</a>
         </Link>
         <div>이름</div>
       </div>
+      <button>
+        <Link href={"/theme/165999"}>
+          <a>테마별 랭킹</a>
+        </Link>
+      </button>
       <div className={classes.search}>
         <Search />
       </div>
