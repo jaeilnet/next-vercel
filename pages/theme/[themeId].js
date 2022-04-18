@@ -5,10 +5,10 @@ import ThemeList from "../../components/ThemeList";
 import ThemeTap from "../../components/ThemeTap";
 
 const ThemeHome = ({ data }) => {
-  // console.log(data, "data");
+  console.log(data, "ㄴㅇㄹㄴㄹㅇ");
   return (
     <React.Fragment>
-      {/* <ThemeScreen data={data.themeName} /> */}
+      <ThemeScreen data={data.themeName} />
       <ThemeTap />
       <ThemeList data={data.themeList} />
     </React.Fragment>
@@ -16,7 +16,7 @@ const ThemeHome = ({ data }) => {
 };
 
 export async function getStaticProps(ctx) {
-  // console.log(ctx, "ctx");
+  console.log(ctx, "ctx");
   const { list: name } = await useFetch(
     "https://gift.kakao.com/a/v1/home/contents?_=1650198967511"
   );
@@ -30,10 +30,9 @@ export async function getStaticProps(ctx) {
   let totalArray = [];
 
   for (let i = 0; i < themeUrl.length; i++) {
-    console.log(+themeUrl[i], "aa");
     const { list: themeList } = await useFetch(
       `https://gift.kakao.com/a/v1/pages${
-        +themeUrl[i] === NaN ? `/codes/${themeUrl[i]}` : `/${themeUrl[i]}`
+        isNaN(+themeUrl[i]) ? `/codes/${themeUrl[i]}` : `/${themeUrl[i]}`
       }`
     );
 
