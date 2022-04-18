@@ -1,22 +1,31 @@
 import React from "react";
-import ThemeScreen from "../../components/ThemeScreen";
 import useFetch from "../../components/useFetch";
-import ThemeList from "../../components/ThemeList";
-import ThemeTap from "../../components/ThemeTap";
+import HeadCommon from "../../components/layout/Head";
+import ThemeScreen from "../../components/theme/ThemeScreen";
+import ThemeTap from "../../components/theme/ThemeTap";
+import ThemeList from "../../components/theme/ThemeList";
 
 const ThemeHome = ({ data }) => {
-  console.log(data, "ㄴㅇㄹㄴㄹㅇ");
+  console.log(data, "dd");
+  const tabs = data?.themeName.map(
+    (e) => e[1].components[1].property.collectionHead.property
+  );
+
   return (
     <React.Fragment>
-      <ThemeScreen data={data.themeName} />
-      <ThemeTap />
-      <ThemeList data={data.themeList} />
+      <HeadCommon meta={data} />
+      {data && (
+        <>
+          <ThemeScreen data={data.themeName} />
+          <ThemeTap tabs={tabs} />
+          <ThemeList data={data.themeList} />
+        </>
+      )}
     </React.Fragment>
   );
 };
 
 export async function getStaticProps(ctx) {
-  console.log(ctx, "ctx");
   const { list: name } = await useFetch(
     "https://gift.kakao.com/a/v1/home/contents?_=1650198967511"
   );
@@ -46,16 +55,27 @@ export async function getStaticProps(ctx) {
     `https://gift.kakao.com/a/v1/pages/productGroups/collections?page=1&size=100&productCollectionIds=${ctx.params.themeId}&filteringSoldOut=true&sortProperty=PRIORITY`
   );
 
-  const itmesList = list.items.map((e, i) => ({
+  const itemList = list.items.map((e, i) => ({
     ...e,
     rank: i + 1,
   }));
+
+  const filter = Object.entries(totalArray).filter(
+    (e) =>
+      e[1].components[1].property.collections[0].collectionId ===
+      +ctx.params.themeId
+  );
+
+  const themeTabs = filter[0][1].components.filter(
+    (e) => e.type === "PRODUCT_GROUP"
+  );
 
   return {
     props: {
       data: {
         themeName: Object.entries(totalArray),
-        themeList: itmesList,
+        themeList: itemList,
+        themeTabs: themeTabs,
       },
     },
   };
@@ -72,7 +92,7 @@ export async function getStaticPaths() {
     fallback: true,
     paths: pathAry.map((e) => ({
       params: {
-        themeId: String(e),
+        themeId: e.toString(),
       },
     })),
   };

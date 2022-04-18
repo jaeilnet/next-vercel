@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
-import Card from "./card/Card";
 import classes from "./ThemeList.module.css";
+import Card from "../card/Card";
 
 const imgLoader = ({ src }) => src;
 

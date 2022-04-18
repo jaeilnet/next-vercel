@@ -1,46 +1,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import classes from "./ThemeScreen.module.css";
-
-// const ary = [
-//   {
-//     생일: [165624, 165625, 165626, 165627],
-//   },
-//   {
-//     "건강/회복": [165999],
-//   },
-//   {
-//     가벼운선물: [165927],
-//   },
-//   {
-//     럭셔리: [166006],
-//   },
-//   {
-//     어른: [165997],
-//   },
-//   {
-//     명품: [168690, 168688, 168689],
-//   },
-//   {
-//     출산: [160779, 160780, 160780],
-//   },
-//   {
-//     쓸모: [165933],
-//   },
-//   {
-//     응원: [165932],
-//   },
-//   {
-//     취미: [166412, 166413],
-//   },
-//   {
-//     결혼: [166002],
-//   },
-//   {
-//     배달: [165594, 165595],
-//   },
-// ];
 
 const imgLoader = ({ src }) => src;
 
@@ -91,7 +52,7 @@ const ThemeScreen = ({ data }) => {
           <React.Fragment key={i}>
             <div
               className={
-                e[1].name === selectTheme ? classes.selectTheme : classes.theme
+                e[0] === selectTheme ? classes.selectTheme : classes.theme
               }
               onClick={() => {
                 handleSelectTeheme(e[0]);
