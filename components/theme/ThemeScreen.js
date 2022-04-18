@@ -5,15 +5,25 @@ import classes from "./ThemeScreen.module.css";
 
 const imgLoader = ({ src }) => src;
 
-const ThemeScreen = ({ data }) => {
+const ThemeScreen = ({ data, banner }) => {
   const [selectTheme, setSelectTheme] = useState(data[1][0]);
 
   const router = useRouter();
 
   const condition = data.filter((e) => e[0] === selectTheme);
 
-  const path =
-    condition[0][1].components[1].property.collections[0].collectionId;
+  const filter = banner
+    ?.filter((e) => e.type === "PRODUCT_GROUP")
+    .filter((e) => e.property.collectionHead.type === "TAB");
+
+  const index =
+    filter[0] && filter[0].property.collectionHead.property.defaultTabIndex;
+
+  const tabPath =
+    filter[0] &&
+    filter[0].property.collectionHead.property.tabs[index].collectionId;
+
+  console.log(tabPath, "vtabPath");
 
   const handleSelectTeheme = (themeName) => {
     setSelectTheme(themeName);
@@ -56,10 +66,12 @@ const ThemeScreen = ({ data }) => {
               }
               onClick={() => {
                 handleSelectTeheme(e[0]);
+                console.log(banner);
                 router.push(
                   `/theme/${
-                    e[1].components[1].property.collections.length &&
-                    e[1].components[1].property.collections[0].collectionId
+                    banner.length <= 1
+                      ? e[1].components[1].property.collections[0].collectionId
+                      : tabPath
                   }`
                 );
               }}

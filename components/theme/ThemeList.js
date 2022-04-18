@@ -11,9 +11,9 @@ const ThemeList = ({ data }) => {
 
   return (
     <div className={classes.content}>
-      {data.map((e) => (
+      {data.map((e, i) => (
         <Card
-          key={e.rank}
+          key={e.rank ? e.rank : i}
           onClick={() => router.push(`/detail/${e.productId}`)}
         >
           <div>

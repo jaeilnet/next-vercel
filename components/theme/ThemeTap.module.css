@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  gap: 20px;
+  padding: 10px 20px;
+  background: #efefef;
+  border-radius: 20px;
+}
+
+.button {
+  padding: 10px 20px;
+}
+
+.active {
+  background: red;
+}
