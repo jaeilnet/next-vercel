@@ -4,7 +4,7 @@ import HeadCommon from "../../components/layout/Head";
 import ThemeList from "../../components/theme/ThemeList";
 
 const ThemeHome = ({ data }) => {
-  console.log(data, "data");
+  // console.log(data, "data");
   return (
     <React.Fragment>
       <HeadCommon meta={data && data} />
@@ -61,9 +61,8 @@ export async function getStaticProps(ctx) {
     rank: i + 1,
   }));
 
-  Object.entries(totalList)
-    .flat()
-    .map((e) => console.log(e));
+  console.log(bannerItems);
+  // Object.entries(totalList).map((e) => console.log(e));
 
   return {
     props: {
@@ -71,7 +70,10 @@ export async function getStaticProps(ctx) {
         themeBanner: bannerItems,
         themeList: itemList,
         productId: productId,
-        // data: totalList.length === 0 ? itemList : Object.entries(totalList),
+        // data:
+        //   totalList.length === 0
+        //     ? itemList
+        //     : Object.entries(totalList).map((e) => e.map((e) => e)),
       },
     },
   };
