@@ -12,13 +12,18 @@ const List = ({ list }) => {
         <Link href={`/detail/${e.productId}`} key={e.productId}>
           <li className={classes.list} key={e.productId}>
             <p className={classes.lank}>{e.rank}</p>
-            <Image
-              style={{ borderRadius: "50%" }}
-              loader={imgLoader}
-              width={105}
-              height={105}
-              src={e.imageUrl}
-            />
+            <div style={{ minWidth: "105px" }}>
+              <Image
+                style={{ borderRadius: "50%" }}
+                loader={imgLoader}
+                width={105}
+                height={105}
+                src={e.imageUrl}
+                layout="responsive"
+                objectFit="contain"
+                unoptimized={true}
+              />
+            </div>
             <div className={classes.productInfo}>
               <p className={classes.brand}>{e.brandName}</p>
               <p className={classes.name}>{e.displayName}</p>
