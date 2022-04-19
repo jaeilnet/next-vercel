@@ -3,6 +3,8 @@
   grid-gap: 20px;
   margin: 0 20px;
   grid-template-columns: repeat(auto-fit, minmax(17%, auto));
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .productInfo {
@@ -22,6 +24,62 @@
 
 .productInfo :last-child {
   font-weight: bold;
+}
+
+.imgBanner {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  min-width: 800px;
+  min-height: 305px;
+  width: 100%;
+  height: 300px;
+  margin-top: 30px;
+}
+
+.bannerText {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #d9dbff52;
+  height: 300px;
+  justify-content: center;
+  align-items: center;
+}
+
+.bannerText :first-child {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 2;
+}
+
+.tabContainer {
+  display: flex;
+  gap: 20px;
+  padding: 10px 20px;
+  background: #efefef;
+  border-radius: 20px;
+  margin: 20px 0;
+}
+
+.tabButton {
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+.tabButton:hover {
+  background: red;
+}
+
+.tabBox {
+  display: flex;
+  max-width: 800px;
+  margin: 0 auto;
+  gap: 20px;
+}
+
+.activeTab {
+  background: red;
 }
 
 @media screen and (max-width: 420px) {

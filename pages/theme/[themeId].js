@@ -1,120 +1,77 @@
 import React from "react";
 import useFetch from "../../components/useFetch";
 import HeadCommon from "../../components/layout/Head";
-import ThemeScreen from "../../components/theme/ThemeScreen";
-import ThemeTap from "../../components/theme/ThemeTap";
 import ThemeList from "../../components/theme/ThemeList";
-import classes from "../../components/theme/ThemeTap.module.css";
 
 const ThemeHome = ({ data }) => {
-  const banner =
-    data &&
-    data.themeTabs
-      .filter((e) => e.type === "PRODUCT_GROUP")
-      .filter((e) => e.property.collectionHead.type !== "NONE");
-
-  const renderBanner = (type, property, items, i) => {
-    switch (type) {
-      case "TAB": {
-        return (
-          <div className={classes.container}>
-            {property?.tabs.map((e, i) => (
-              <ThemeTap
-                key={i}
-                tabs={e}
-                collectionId={property.tabs[0].collectionId}
-              />
-            ))}
-          </div>
-        );
-      }
-      case "TITLE": {
-        return (
-          <React.Fragment key={i}>
-            <h1>{property.displayTitle}</h1>
-            <ThemeList data={items.map((e) => e)} />
-          </React.Fragment>
-        );
-      }
-
-      default:
-        return;
-    }
-  };
-
+  console.log(data, "data");
   return (
     <React.Fragment>
-      <HeadCommon meta={data} />
-      {data && banner && (
-        <>
-          <ThemeScreen data={data.themeName} banner={banner} />
-          {banner.map((e, idx) =>
-            renderBanner(
-              e.property.collectionHead.type,
-              e.property.collectionHead.property,
-              e.property.collections[0].items,
-              idx
-            )
-          )}
-          <ThemeList data={data.themeList} />
-        </>
-      )}
+      <HeadCommon meta={data && data} />
+      <ThemeList data={data && data} />
     </React.Fragment>
   );
 };
 
 export async function getStaticProps(ctx) {
-  const { list: name } = await useFetch(
-    "https://gift.kakao.com/a/v1/home/contents?_=1650198967511"
-  );
-
-  const themeName = name.themes[0].themes.map((e) => e.name);
-
-  const _theme = name.themes[0].themes.map((e) => e.linkUrl.split("/"));
-
-  const themeUrl = _theme.map((e) => e[e.length - 1]);
-
-  let totalArray = [];
-
-  for (let i = 0; i < themeUrl.length; i++) {
-    const { list: themeList } = await useFetch(
-      `https://gift.kakao.com/a/v1/pages${
-        isNaN(+themeUrl[i]) ? `/codes/${themeUrl[i]}` : `/${themeUrl[i]}`
-      }`
-    );
-
-    totalArray = {
-      ...totalArray,
-      [themeName[i]]: themeList,
-    };
-  }
+  const params = ctx.params.themeId;
 
   const { list } = await useFetch(
-    `https://gift.kakao.com/a/v1/pages/productGroups/collections?page=1&size=100&productCollectionIds=${ctx.params.themeId}&filteringSoldOut=true&sortProperty=PRIORITY`
+    `https://gift.kakao.com/a/v1/pages/${
+      params.includes("life") ? `codes/${params}` : params
+    }`
   );
 
-  const itemList = list.items.map((e, i) => ({
+  const bannerItems = list.components.map((e) => e);
+
+  const productGroup = bannerItems.filter((e) => e.type === "PRODUCT_GROUP");
+
+  const tabs = productGroup.filter(
+    (e) => e.property.collectionHead.type === "TAB"
+  );
+
+  const productId =
+    tabs.length > 0
+      ? tabs.map((e) => e.property.collections.map((e) => e.collectionId))
+      : productGroup[0].property.collections[0].collectionId;
+
+  let totalList = [];
+
+  if (typeof productId === "object") {
+    for (let i = 0; i < productId.flat().length; i++) {
+      const { list: dataList } = await useFetch(
+        `https://gift.kakao.com/a/v1/pages/productGroups/collections?page=1&size=100&productCollectionIds=${
+          productId.flat()[i]
+        }&filteringSoldOut=true&sortProperty=PRIORITY`
+      );
+
+      totalList = {
+        ...totalList,
+        [i]: dataList,
+      };
+    }
+  }
+
+  const { list: dataList } = await useFetch(
+    `https://gift.kakao.com/a/v1/pages/productGroups/collections?page=1&size=100&productCollectionIds=${productId}&filteringSoldOut=true&sortProperty=PRIORITY`
+  );
+
+  const itemList = dataList.items.map((e, i) => ({
     ...e,
     rank: i + 1,
   }));
 
-  const filter = Object.entries(totalArray).filter(
-    (e) =>
-      e[1].components[1].property.collections[0].collectionId ===
-      +ctx.params.themeId
-  );
-
-  const themeTabs =
-    filter.length > 1
-      ? filter[0][1].components.filter((e) => e.type === "PRODUCT_GROUP")
-      : [];
+  Object.entries(totalList)
+    .flat()
+    .map((e) => console.log(e));
 
   return {
     props: {
       data: {
-        themeName: Object.entries(totalArray),
+        themeBanner: bannerItems,
         themeList: itemList,
-        themeTabs: themeTabs,
+        productId: productId,
+        // data: totalList.length === 0 ? itemList : Object.entries(totalList),
       },
     },
   };

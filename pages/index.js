@@ -1,30 +1,27 @@
 import React from "react";
-import List from "../components/List";
 import useFetch from "../components/useFetch";
 import HeadCommon from "../components/layout/Head";
+import ThemeScreen from "../components/theme/ThemeScreen";
 
-const Home = ({ itemsList }) => {
+const Home = ({ data }) => {
   return (
     <React.Fragment>
       <HeadCommon />
-      <List list={itemsList} />
+      <ThemeScreen data={data} />
     </React.Fragment>
   );
 };
 
 export async function getStaticProps() {
   const { list } = await useFetch(
-    "https://gift.kakao.com/a/v1/pages/productGroups/collections?page=1&size=100&productCollectionIds"
+    "https://gift.kakao.com/a/v1/home/contents?_=1650198967511"
   );
 
-  const itmesList = list.items.map((e, i) => ({
-    ...e,
-    rank: i + 1,
-  }));
+  const themeList = list.themes[0].themes;
 
   return {
     props: {
-      itemsList: itmesList,
+      data: themeList,
     },
   };
 }

@@ -1,91 +1,81 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import classes from "./ThemeScreen.module.css";
 
 const imgLoader = ({ src }) => src;
 
-const ThemeScreen = ({ data, banner }) => {
-  const [selectTheme, setSelectTheme] = useState(data[1][0]);
+const ThemeScreen = ({ data }) => {
+  const [selectTheme, setSelectTheme] = useState(data.name);
 
   const router = useRouter();
 
-  const condition = data.filter((e) => e[0] === selectTheme);
+  // const condition = data.filter((e) => e[0] === selectTheme);
 
-  const filter = banner
-    ?.filter((e) => e.type === "PRODUCT_GROUP")
-    .filter((e) => e.property.collectionHead.type === "TAB");
+  // const filter = banner
+  //   ?.filter((e) => e.type === "PRODUCT_GROUP")
+  //   .filter((e) => e.property.collectionHead.type === "TAB");
 
-  const index =
-    filter[0] && filter[0].property.collectionHead.property.defaultTabIndex;
+  // const index =
+  //   filter[0] && filter[0].property.collectionHead.property.defaultTabIndex;
 
-  const tabPath =
-    filter[0] &&
-    filter[0].property.collectionHead.property.tabs[index].collectionId;
+  // const tabPath =
+  //   filter[0] &&
+  //   filter[0].property.collectionHead.property.tabs[index].collectionId;
 
-  console.log(tabPath, "vtabPath");
+  // console.log(tabPath, "vtabPath");
 
-  const handleSelectTeheme = (themeName) => {
+  const handleSelectTheme = (themeName) => {
     setSelectTheme(themeName);
   };
 
-  const renderBanner = (type, property) => {
-    switch (type) {
-      case "TEXT_BANNER":
-        return (
-          <div className={classes.bannerText}>
-            <p>{property.subText}</p>
-            <p>{property.mainText}</p>
-            <p>{property.descriptionText}</p>
-          </div>
-        );
-      case "IMAGE_BANNER":
-        return (
-          <div className={classes.imgBanner}>
-            <Image
-              loader={imgLoader}
-              width="100%"
-              height="100%"
-              layout="fill"
-              objectFit="contain"
-              src={property?.banners[0].imageUrl}
-            />
-          </div>
-        );
-    }
+  const handleUrl = (url) => {
+    const _split = url.split("/");
+
+    const split = _split[_split.length - 1];
+
+    // return split.includes("life") ? `/pages/codes/${split}` : `pages/${split}`;
+    return split;
   };
 
   return (
     <div className={classes.container}>
       <div className={classes.themeBox}>
-        {data.map((e, i) => (
-          <React.Fragment key={i}>
-            <div
-              className={
-                e[0] === selectTheme ? classes.selectTheme : classes.theme
-              }
-              onClick={() => {
-                handleSelectTeheme(e[0]);
-                console.log(banner);
-                router.push(
-                  `/theme/${
-                    banner.length <= 1
-                      ? e[1].components[1].property.collections[0].collectionId
-                      : tabPath
-                  }`
-                );
-              }}
-            >
-              {e[1].name.split("_")[1]}
-            </div>
-          </React.Fragment>
-        ))}
+        {data.map((e) => {
+          return (
+            <Link key={e.id} href={`/theme/${handleUrl(e.linkUrl)}`}>
+              <div
+                className={classes.themeCard}
+                onClick={() => {
+                  handleSelectTheme(e.name);
+                }}
+              >
+                <div>
+                  <Image
+                    src={e.images[0]}
+                    width={80}
+                    height={80}
+                    loader={imgLoader}
+                  />
+                </div>
+                <div
+                  className={
+                    e.name === selectTheme ? classes.selectTheme : classes.theme
+                  }
+                >
+                  {e.name}
+                </div>
+              </div>
+            </Link>
+          );
+        })}
       </div>
-      {condition[0][1].components.map((e, i) => (
+      {/* {condition[0][1].components.map((e, i) => (
         <div key={i} className={classes.banner}>
           {renderBanner(e.type, e.property)}
         </div>
-      ))}
+      ))} */}
     </div>
   );
 };

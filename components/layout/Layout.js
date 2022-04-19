@@ -5,7 +5,6 @@ import Header from "./Header";
 const Layout = (props) => {
   const styles = {
     paddingTop: "65px",
-    maxWidth: "1200px",
     margin: "0 auto",
   };
 
