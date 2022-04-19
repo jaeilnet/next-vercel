@@ -61,7 +61,7 @@ export async function getStaticProps(ctx) {
     rank: i + 1,
   }));
 
-  console.log(bannerItems);
+  // console.log(bannerItems);
   // Object.entries(totalList).map((e) => console.log(e));
 
   return {
