@@ -63,7 +63,7 @@ const ThemeHome = ({ data }) => {
   );
 };
 
-export async function getServerSideProps(ctx) {
+export async function getStaticProps(ctx) {
   const { list: name } = await useFetch(
     "https://gift.kakao.com/a/v1/home/contents?_=1650198967511"
   );
@@ -120,21 +120,21 @@ export async function getServerSideProps(ctx) {
   };
 }
 
-// export async function getStaticPaths() {
-//   const pathAry = [
-//     165624, 165625, 165626, 165627, 165999, 165927, 166006, 165997, 168688,
-//     168689, 168690, 160779, 160779, 160780, 160781, 165933, 165932, 166412,
-//     166413, 166002, 165594, 165595,
-//   ];
+export async function getStaticPaths() {
+  const pathAry = [
+    165624, 165625, 165626, 165627, 165999, 165927, 166006, 165997, 168688,
+    168689, 168690, 160779, 160779, 160780, 160781, 165933, 165932, 166412,
+    166413, 166002, 165594, 165595,
+  ];
 
-//   return {
-//     fallback: true,
-//     paths: pathAry.map((e) => ({
-//       params: {
-//         themeId: e.toString(),
-//       },
-//     })),
-//   };
-// }
+  return {
+    fallback: true,
+    paths: pathAry.map((e) => ({
+      params: {
+        themeId: e.toString(),
+      },
+    })),
+  };
+}
 
 export default ThemeHome;
