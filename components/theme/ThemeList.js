@@ -39,6 +39,7 @@ const ThemeList = ({ data }) => {
   };
 
   const renderTaps = (type, property) => {
+    // console.log(property, type);
     switch (type) {
       case "TAB":
         return (
@@ -115,9 +116,15 @@ const ThemeList = ({ data }) => {
         );
       })}
       <div className={classes.content}>
-        {data?.themeList.map((e, i) => (
-          <React.Fragment key={i}>{renderList(e, i)}</React.Fragment>
-        ))}
+        {data?.data.length > 1
+          ? data?.data.map((e, i) => (
+              <React.Fragment key={i}>{renderList(e, i)}</React.Fragment>
+            ))
+          : Object.entries(data?.data).map((e, i) =>
+              e[1].map((e, j) => (
+                <React.Fragment key={j}>{renderList(e, i)}</React.Fragment>
+              ))
+            )}
       </div>
     </React.Fragment>
   );

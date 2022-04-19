@@ -4,7 +4,7 @@ import HeadCommon from "../../components/layout/Head";
 import ThemeList from "../../components/theme/ThemeList";
 
 const ThemeHome = ({ data }) => {
-  // console.log(data, "data");
+  console.log(data, "data");
   return (
     <React.Fragment>
       <HeadCommon meta={data && data} />
@@ -30,6 +30,10 @@ export async function getServerSideProps(ctx) {
     (e) => e.property.collectionHead.type === "TAB"
   );
 
+  const tabName =
+    tabs.length > 0 ? tabs[0].property.collectionHead.property.tabs : null;
+
+  // console.log(tabName[]);
   const productId =
     tabs.length > 0
       ? tabs.map((e) => e.property.collections.map((e) => e.collectionId))
@@ -47,7 +51,7 @@ export async function getServerSideProps(ctx) {
 
       totalList = {
         ...totalList,
-        [i]: dataList,
+        [tabName ? tabName[i].tabName : [i]]: dataList.items,
       };
     }
   }
@@ -61,19 +65,14 @@ export async function getServerSideProps(ctx) {
     rank: i + 1,
   }));
 
-  // console.log(bannerItems);
-  // Object.entries(totalList).map((e) => console.log(e));
-
   return {
     props: {
       data: {
         themeBanner: bannerItems,
         themeList: itemList,
         productId: productId,
-        // data:
-        //   totalList.length === 0
-        //     ? itemList
-        //     : Object.entries(totalList).map((e) => e.map((e) => e)),
+        data: totalList.length === 0 ? itemList : totalList,
+        tabs: tabName,
       },
     },
   };
