@@ -12,16 +12,6 @@ const List = ({ items }) => {
 
   const [showDetail, setShowDetail] = useState(false);
 
-  const styles = {
-    margin: "0 auto",
-    marginTop: "30px",
-    zIndex: "99",
-    background: "#fff",
-    padding: "20px",
-    boxShadow: " 0px 10px 10px 12px rgb(116 116 116 / 20%)",
-    borderRadius: "12px",
-  };
-
   const renderProductInfo = () => {
     return (
       <div
@@ -36,7 +26,7 @@ const List = ({ items }) => {
         className={classes.bg}
         style={{ backgroundImage: `url(${items.imageUrl})` }}
       ></div>
-      <div className={classes.items} style={styles}>
+      <div className={classes.detailContent}>
         <div className={classes.title}>{items.displayName}</div>
         <div className={classes.content}>
           <div className={classes.productInfo}>

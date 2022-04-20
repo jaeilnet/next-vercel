@@ -45,8 +45,8 @@ const ThemeList = ({ data }) => {
       case "TAB":
         return (
           <div className={classes.tabBox}>
-            {dataList.map((e) => (
-              <div>
+            {dataList.map((e, i) => (
+              <div key={i}>
                 <div className={classes.tabButton}> {e[0]}</div>
                 <div className={classes.content}>
                   {e[1].map((e, i) => renderList(e, i))}
@@ -75,7 +75,7 @@ const ThemeList = ({ data }) => {
         return (
           <div className={classes.content}>
             {dataList.map((e, i) => (
-              <React.Fragment>{renderList(e, i)}</React.Fragment>
+              <React.Fragment key={i}>{renderList(e, i)}</React.Fragment>
             ))}
           </div>
         );
@@ -113,9 +113,9 @@ const ThemeList = ({ data }) => {
 
   return (
     <React.Fragment>
-      {data?.themeBanner.map((e) => {
+      {data?.themeBanner.map((e, i) => {
         return (
-          <React.Fragment key={e.id}>
+          <React.Fragment key={i}>
             {renderBanner(e.type, e.property)}
             {renderTaps(e.property.collectionHead?.type, e.property)}
           </React.Fragment>

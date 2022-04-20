@@ -4,7 +4,6 @@ import HeadCommon from "../../components/layout/Head";
 import ThemeList from "../../components/theme/ThemeList";
 
 const ThemeHome = ({ data }) => {
-  // console.log(data, "data");
   return (
     <React.Fragment>
       <HeadCommon meta={data && data} />
@@ -13,7 +12,7 @@ const ThemeHome = ({ data }) => {
   );
 };
 
-export async function getServerSideProps(ctx) {
+export async function getStaticProps(ctx) {
   const params = ctx.params.themeId;
 
   const { list } = await useFetch(
@@ -33,7 +32,6 @@ export async function getServerSideProps(ctx) {
   const tabName =
     tabs.length > 0 ? tabs[0].property.collectionHead.property.tabs : null;
 
-  // console.log(tabName[]);
   const productId =
     tabs.length > 0
       ? tabs.map((e) => e.property.collections.map((e) => e.collectionId))
@@ -69,30 +67,30 @@ export async function getServerSideProps(ctx) {
     props: {
       data: {
         themeBanner: bannerItems,
-        themeList: itemList,
         productId: productId,
         data: totalList.length === 0 ? itemList : totalList,
-        tabs: tabName,
       },
     },
   };
 }
 
-// export async function getStaticPaths() {
-//   const pathAry = [
-//     165624, 165625, 165626, 165627, 165999, 165927, 166006, 165997, 168688,
-//     168689, 168690, 160779, 160779, 160780, 160781, 165933, 165932, 166412,
-//     166413, 166002, 165594, 165595,
-//   ];
+export async function getStaticPaths() {
+  const { list } = await useFetch(
+    "https://gift.kakao.com/a/v1/home/contents?_=1650198967511"
+  );
 
-//   return {
-//     fallback: true,
-//     paths: pathAry.map((e) => ({
-//       params: {
-//         themeId: e.toString(),
-//       },
-//     })),
-//   };
-// }
+  const _pathName = list.themes[0].themes.map((e) => e.linkUrl);
+
+  const pathName = _pathName.map((e) => e.split("/"));
+
+  return {
+    fallback: true,
+    paths: pathName.map((e) => ({
+      params: {
+        themeId: e[e.length - 1],
+      },
+    })),
+  };
+}
 
 export default ThemeHome;
