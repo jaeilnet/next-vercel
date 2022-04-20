@@ -2,9 +2,10 @@
   display: grid;
   grid-gap: 20px;
   margin: 0 20px;
-  grid-template-columns: repeat(auto-fit, minmax(17%, auto));
+  grid-template-columns: repeat(auto-fit, minmax(15%, auto));
   max-width: 1200px;
   margin: 0 auto;
+  margin-top: 50px;
 }
 
 .productInfo {
@@ -53,27 +54,28 @@
   line-height: 2;
 }
 
-.tabContainer {
-  display: flex;
-  gap: 20px;
-  padding: 10px 20px;
-  background: #efefef;
-  border-radius: 20px;
-  margin: 20px 0;
-}
-
 .tabButton {
   cursor: pointer;
   padding: 10px 20px;
+  background: #c3cbf7;
+
+  margin: 20px 0;
+  border-radius: 12px;
+  text-align: center;
+
+  position: sticky;
+  top: 75px;
+  z-index: 22;
 }
 
 .tabButton:hover {
-  background: red;
+  /* background: red; */
 }
 
 .tabBox {
   display: flex;
-  max-width: 800px;
+  flex-direction: column;
+  max-width: 1200px;
   margin: 0 auto;
   gap: 20px;
 }

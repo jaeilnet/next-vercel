@@ -9,23 +9,6 @@ const imgLoader = ({ src }) => src;
 const ThemeScreen = ({ data }) => {
   const [selectTheme, setSelectTheme] = useState(data.name);
 
-  const router = useRouter();
-
-  // const condition = data.filter((e) => e[0] === selectTheme);
-
-  // const filter = banner
-  //   ?.filter((e) => e.type === "PRODUCT_GROUP")
-  //   .filter((e) => e.property.collectionHead.type === "TAB");
-
-  // const index =
-  //   filter[0] && filter[0].property.collectionHead.property.defaultTabIndex;
-
-  // const tabPath =
-  //   filter[0] &&
-  //   filter[0].property.collectionHead.property.tabs[index].collectionId;
-
-  // console.log(tabPath, "vtabPath");
-
   const handleSelectTheme = (themeName) => {
     setSelectTheme(themeName);
   };
@@ -35,7 +18,6 @@ const ThemeScreen = ({ data }) => {
 
     const split = _split[_split.length - 1];
 
-    // return split.includes("life") ? `/pages/codes/${split}` : `pages/${split}`;
     return split;
   };
 
@@ -71,11 +53,6 @@ const ThemeScreen = ({ data }) => {
           );
         })}
       </div>
-      {/* {condition[0][1].components.map((e, i) => (
-        <div key={i} className={classes.banner}>
-          {renderBanner(e.type, e.property)}
-        </div>
-      ))} */}
     </div>
   );
 };

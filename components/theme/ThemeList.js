@@ -8,7 +8,9 @@ const imgLoader = ({ src }) => src;
 
 const ThemeList = ({ data }) => {
   const router = useRouter();
-  const [selectButtonId, setSelectButtonId] = useState(data?.productId);
+
+  const dataList =
+    data.data.length === undefined ? Object.entries(data?.data) : data.data;
 
   const renderBanner = (type, property) => {
     switch (type) {
@@ -39,24 +41,21 @@ const ThemeList = ({ data }) => {
   };
 
   const renderTaps = (type, property) => {
-    // console.log(property, type);
     switch (type) {
       case "TAB":
         return (
-          <div className={classes.tabContainer}>
-            <div className={classes.tabBox}>
-              {property.collectionHead.property.tabs.map((e, i) => (
-                <button
-                  key={i}
-                  className={classes.tabButton}
-                  onClick={() => setSelectButtonId(e.collectionId)}
-                >
-                  {e.tabName}
-                </button>
-              ))}
-            </div>
+          <div className={classes.tabBox}>
+            {dataList.map((e) => (
+              <div>
+                <div className={classes.tabButton}> {e[0]}</div>
+                <div className={classes.content}>
+                  {e[1].map((e, i) => renderList(e, i))}
+                </div>
+              </div>
+            ))}
           </div>
         );
+
       case "TITLE":
         return (
           <div>
@@ -73,6 +72,13 @@ const ThemeList = ({ data }) => {
           </div>
         );
       case "NONE":
+        return (
+          <div className={classes.content}>
+            {dataList.map((e, i) => (
+              <React.Fragment>{renderList(e, i)}</React.Fragment>
+            ))}
+          </div>
+        );
       default:
         break;
     }
@@ -115,17 +121,6 @@ const ThemeList = ({ data }) => {
           </React.Fragment>
         );
       })}
-      <div className={classes.content}>
-        {data?.data.length > 1
-          ? data?.data.map((e, i) => (
-              <React.Fragment key={i}>{renderList(e, i)}</React.Fragment>
-            ))
-          : Object.entries(data?.data).map((e, i) =>
-              e[1].map((e, j) => (
-                <React.Fragment key={j}>{renderList(e, i)}</React.Fragment>
-              ))
-            )}
-      </div>
     </React.Fragment>
   );
 };
