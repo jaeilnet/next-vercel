@@ -9,9 +9,8 @@ const imgLoader = ({ src }) => src;
 const ThemeList = ({ data }) => {
   const router = useRouter();
 
-  console.log(data.data.map((e) => console.log(e.map((e) => console.log(e)))));
-  // const dataList =
-  //   data?.data.length === undefined ? Object.entries(data?.data) : data?.data;
+  const dataList =
+    data?.data.length === undefined ? Object.entries(data?.data) : data?.data;
 
   const renderBanner = (type, property) => {
     switch (type) {
@@ -46,11 +45,11 @@ const ThemeList = ({ data }) => {
       case "TAB":
         return (
           <div className={classes.tabBox}>
-            {data.data.map((e, i) => (
+            {dataList.map((e, i) => (
               <div key={i}>
-                {/* <div className={classes.tabButton}> {e}</div> */}
+                <div className={classes.tabButton}> {e[0]}</div>
                 <div className={classes.content}>
-                  {e.map((e, i) => renderList(e, i))}
+                  {e[1].map((e, i) => renderList(e, i))}
                 </div>
               </div>
             ))}
@@ -75,7 +74,7 @@ const ThemeList = ({ data }) => {
       case "NONE":
         return (
           <div className={classes.content}>
-            {data.data.map((e, i) => (
+            {dataList.map((e, i) => (
               <React.Fragment key={i}>{renderList(e, i)}</React.Fragment>
             ))}
           </div>
