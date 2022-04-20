@@ -10,7 +10,7 @@ const ThemeList = ({ data }) => {
   const router = useRouter();
 
   const dataList =
-    data.data.length === undefined ? Object.entries(data?.data) : data.data;
+    data?.data.length === undefined ? Object.entries(data?.data) : data?.data;
 
   const renderBanner = (type, property) => {
     switch (type) {
