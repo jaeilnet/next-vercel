@@ -35,6 +35,7 @@ const ThemeScreen = ({ data }) => {
               >
                 <div>
                   <Image
+                    style={{ borderRadius: "8px" }}
                     src={e.images[0]}
                     width={80}
                     height={80}

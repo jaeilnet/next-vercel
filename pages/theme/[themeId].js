@@ -71,6 +71,7 @@ export async function getStaticProps(ctx) {
         data: totalList.length === 0 ? itemList : totalList,
       },
     },
+    revalidate: 10,
   };
 }
 
