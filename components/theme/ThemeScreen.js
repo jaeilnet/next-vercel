@@ -40,6 +40,9 @@ const ThemeScreen = ({ data }) => {
                     width={80}
                     height={80}
                     loader={imgLoader}
+                    layout="fixed"
+                    objectFit="contain"
+                    unoptimized={true}
                   />
                 </div>
                 <div
