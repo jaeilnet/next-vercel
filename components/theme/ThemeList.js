@@ -31,6 +31,7 @@ const ThemeList = ({ data }) => {
               height="100%"
               layout="fill"
               objectFit="contain"
+              unoptimized={true}
               src={property?.banners[0].imageUrl}
             />
           </div>
@@ -58,18 +59,18 @@ const ThemeList = ({ data }) => {
 
       case "TITLE":
         return (
-          <div>
-            <div className={classes.tabContainer}>
-              <div className={classes.tabBox}>
+          <>
+            <div className={classes.tabBox}>
+              <div className={classes.tabButton}>
                 {property.collectionHead.property.displayTitle}
               </div>
+              <div className={classes.content}>
+                {property.collections[0].items.map((e, i) => (
+                  <React.Fragment key={i}>{renderList(e, i)}</React.Fragment>
+                ))}
+              </div>
             </div>
-            <div className={classes.content}>
-              {property.collections[0].items.map((e, i) => (
-                <React.Fragment key={i}>{renderList(e, i)}</React.Fragment>
-              ))}
-            </div>
-          </div>
+          </>
         );
       case "NONE":
         return (

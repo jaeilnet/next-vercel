@@ -5,7 +5,6 @@
   grid-template-columns: repeat(auto-fit, minmax(15%, auto));
   max-width: 1200px;
   margin: 0 auto;
-  margin-top: 50px;
   width: 90%;
 }
 
@@ -36,7 +35,7 @@
   min-height: 305px;
   width: 100%;
   height: 300px;
-  margin-top: 30px;
+  margin: 30px 0;
 }
 
 .bannerText {
@@ -47,6 +46,7 @@
   height: 300px;
   justify-content: center;
   align-items: center;
+  margin: 30px 0;
 }
 
 .bannerText :first-child {
@@ -58,7 +58,7 @@
 .tabButton {
   cursor: pointer;
   padding: 10px 20px;
-  background: #c3cbf7;
+  background: #ffebebeb;
 
   margin: 20px 0;
   border-radius: 12px;
