@@ -12,7 +12,7 @@ const ThemeHome = ({ data }) => {
   );
 };
 
-export async function getServerSideProps(ctx) {
+export async function getStaticProps(ctx) {
   const params = ctx.params.themeId;
 
   const { list } = await useFetch(
@@ -74,23 +74,23 @@ export async function getServerSideProps(ctx) {
   };
 }
 
-// export async function getStaticPaths() {
-//   const { list } = await useFetch(
-//     "https://gift.kakao.com/a/v1/home/contents?_=1650198967511"
-//   );
+export async function getStaticPaths() {
+  const { list } = await useFetch(
+    "https://gift.kakao.com/a/v1/home/contents?_=1650198967511"
+  );
 
-//   const _pathName = list.themes[0].themes.map((e) => e.linkUrl);
+  const _pathName = list.themes[0].themes.map((e) => e.linkUrl);
 
-//   const pathName = _pathName.map((e) => e.split("/"));
+  const pathName = _pathName.map((e) => e.split("/"));
 
-//   return {
-//     fallback: true,
-//     paths: pathName.map((e) => ({
-//       params: {
-//         themeId: e[e.length - 1],
-//       },
-//     })),
-//   };
-// }
+  return {
+    fallback: false,
+    paths: pathName.map((e) => ({
+      params: {
+        themeId: e[e.length - 1],
+      },
+    })),
+  };
+}
 
 export default ThemeHome;
